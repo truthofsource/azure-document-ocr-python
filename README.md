@@ -4,7 +4,7 @@
 
 [View SVG](docs/diagrams/architecture.svg) · [Download PNG](docs/diagrams/architecture.png) · [Edit in draw.io](docs/diagrams/architecture.drawio)
 
-**Read approved scans into page-numbered text without losing the original or paying twice for an uncertain request.**
+**Turn approved scanned documents into searchable text while preserving the original files.**
 
 [The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Commands](docs/COMMANDS.md) · [Step by step](#step-by-step)
 
