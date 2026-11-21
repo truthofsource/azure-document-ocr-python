@@ -1,0 +1,21 @@
+{
+  "status": "succeeded",
+  "analyzeResult": {
+    "pages": [
+      {
+        "pageNumber": 1,
+        "lines": [
+          {
+            "content": "Fictional staff handbook"
+          },
+          {
+            "content": "Report a missed clock event to the assigned supervisor."
+          }
+        ]
+      },
+      {
+        "pageNumber": 2
+      }
+    ]
+  }
+}

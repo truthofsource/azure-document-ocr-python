@@ -1,0 +1,40 @@
+test_actual_file_read_is_bounded (test_ledger.LedgerTests.test_actual_file_read_is_bounded) ... ok
+test_bad_request_id_does_not_create_record (test_ledger.LedgerTests.test_bad_request_id_does_not_create_record) ... ok
+test_budget_denial_occurs_before_provider (test_ledger.LedgerTests.test_budget_denial_occurs_before_provider) ... ok
+test_completed_result_and_operation_are_immutable (test_ledger.LedgerTests.test_completed_result_and_operation_are_immutable) ... ok
+test_duplicate_request_never_resubmits (test_ledger.LedgerTests.test_duplicate_request_never_resubmits) ... ok
+test_no_invalid_endpoint_or_redirect_target (test_ledger.LedgerTests.test_no_invalid_endpoint_or_redirect_target) ... ok
+test_not_sent_cost_zero_but_still_counts_daily (test_ledger.LedgerTests.test_not_sent_cost_zero_but_still_counts_daily) ... ok
+test_not_sent_is_terminal (test_ledger.LedgerTests.test_not_sent_is_terminal) ... ok
+test_repeated_same_completion_does_not_duplicate_audit (test_ledger.LedgerTests.test_repeated_same_completion_does_not_duplicate_audit) ... ok
+test_saved_provider_operation_cannot_be_called_not_sent (test_ledger.LedgerTests.test_saved_provider_operation_cannot_be_called_not_sent) ... ok
+test_two_connections_race_only_one_reservation_wins (test_ledger.LedgerTests.test_two_connections_race_only_one_reservation_wins) ... ok
+test_unknown_cannot_be_released_as_not_sent (test_ledger.LedgerTests.test_unknown_cannot_be_released_as_not_sent) ... ok
+test_unknown_survives_reopen_and_blocks_another_caller (test_ledger.LedgerTests.test_unknown_survives_reopen_and_blocks_another_caller) ... ok
+test_uppercase_uuid_settlement_finds_canonical_record (test_ledger.LedgerTests.test_uppercase_uuid_settlement_finds_canonical_record) ... ok
+test_competing_exports_publish_only_one_complete_result (test_pipeline.OcrTests.test_competing_exports_publish_only_one_complete_result) ... ok
+test_completed_cli_resume_needs_no_azure_access_or_credentials (test_pipeline.OcrTests.test_completed_cli_resume_needs_no_azure_access_or_credentials) ... ok
+test_completed_resume_makes_no_http_request (test_pipeline.OcrTests.test_completed_resume_makes_no_http_request) ... ok
+test_export_failure_keeps_directory_free_of_partial_results (test_pipeline.OcrTests.test_export_failure_keeps_directory_free_of_partial_results) ... ok
+test_export_identical_result_is_repeat_safe (test_pipeline.OcrTests.test_export_identical_result_is_repeat_safe) ... ok
+test_export_never_overwrites_an_existing_source_or_ledger (test_pipeline.OcrTests.test_export_never_overwrites_an_existing_source_or_ledger) ... ok
+test_foreign_operation_url_never_gets_token (test_pipeline.OcrTests.test_foreign_operation_url_never_gets_token) ... ok
+test_hash_mismatch_no_submission (test_pipeline.OcrTests.test_hash_mismatch_no_submission) ... ok
+test_invalid_page_shapes_stop_before_paid_admission (test_pipeline.OcrTests.test_invalid_page_shapes_stop_before_paid_admission) ... ok
+test_invalid_type_page_or_overlarge_source (test_pipeline.OcrTests.test_invalid_type_page_or_overlarge_source) ... ok
+test_malformed_provider_root_remains_held (test_pipeline.OcrTests.test_malformed_provider_root_remains_held) ... ok
+test_missing_or_duplicate_page_rejected (test_pipeline.OcrTests.test_missing_or_duplicate_page_rejected) ... ok
+test_no_permission_no_submission (test_pipeline.OcrTests.test_no_permission_no_submission) ... ok
+test_nontext_operation_address_is_controlled (test_pipeline.OcrTests.test_nontext_operation_address_is_controlled) ... ok
+test_ocr_text_rejects_unpaired_unicode_surrogate (test_pipeline.OcrTests.test_ocr_text_rejects_unpaired_unicode_surrogate) ... ok
+test_page_mapping_and_blank_page_preserved (test_pipeline.OcrTests.test_page_mapping_and_blank_page_preserved) ... ok
+test_pending_status_keeps_hold (test_pipeline.OcrTests.test_pending_status_keeps_hold) ... ok
+test_persisted_receipt_resumes_only_get (test_pipeline.OcrTests.test_persisted_receipt_resumes_only_get) ... ok
+test_string_permission_cannot_enable_ocr (test_pipeline.OcrTests.test_string_permission_cannot_enable_ocr) ... ok
+test_timeout_is_unknown_no_paid_retry (test_pipeline.OcrTests.test_timeout_is_unknown_no_paid_retry) ... ok
+test_token_failure_is_not_sent (test_pipeline.OcrTests.test_token_failure_is_not_sent) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.773s
+
+OK
