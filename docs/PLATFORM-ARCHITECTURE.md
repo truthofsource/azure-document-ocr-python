@@ -1,5 +1,9 @@
 # Platform Architecture
 
+The primary OCR diagram focuses on document preparation through searchable SQL
+passages. Frontend, identity and file-safety prerequisites are grouped in one
+small panel; RAG retrieval and AI answer generation remain a separate pipeline.
+
 The illustrated diagram follows the implemented platform design. The runnable
 Python examples exercise core rules locally; hosted infrastructure, authentication
 and scanner integrations are separate from executing those examples.

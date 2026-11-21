@@ -153,16 +153,22 @@ retaining the original PDF and controlling access to both.
 
 ## Architecture
 
-[View the illustrated architecture](docs/diagrams/architecture.svg) · [Edit in draw.io](docs/diagrams/architecture.drawio)
+[View the document-processing pipeline](docs/diagrams/architecture.svg) · [Edit in draw.io](docs/diagrams/architecture.drawio)
 
-The diagram shows the platform architecture: Azure Static Web Apps and Entra sign-in,
-the Azure Functions API, private Blob originals, Defender-backed scan proofs,
-and Azure SQL policies, leased jobs, passages, usage and audit. Document Intelligence
-reads scanned text; Azure OpenAI separately generates answers from permitted passages.
+The main flow starts with an approved, clean document and follows the Azure
+Functions index worker, native extraction, processing admission, optional Azure
+Document Intelligence OCR, saved-operation polling and validated SQL publication.
+Readable text can bypass OCR; uncertain results retain the original receipt and
+usage hold for operator review.
 
-[Read the platform component map](docs/PLATFORM-ARCHITECTURE.md). The runnable Python
-examples model the core rules locally with SQLite; the diagram does not claim
-that running the examples commissions those hosted components.
+A small prerequisites panel keeps the platform context visible without repeating
+the full application architecture. The endpoint is **Searchable passages available
+to RAG**. Retrieval, source access and AI answer generation have their own
+[Secure RAG AI Chatbot diagram](https://github.com/truthofsource/secure-rag-ai-chatbot).
+
+[Read the platform component map](docs/PLATFORM-ARCHITECTURE.md) for the wider
+deployment context. The runnable Python examples exercise the core processing
+rules locally; the diagram does not claim that executing them deploys those services.
 
 ## What Was Built
 

@@ -22,3 +22,6 @@ Optional provider calls remain Off unless explicitly selected and configured.
 
 The platform diagram is documentation of the hosted architecture; it does not
 turn the local Python tests into fresh hosted acceptance or activate services.
+
+The focused OCR diagram separates native-text bypass, controlled OCR, uncertain
+operation review and the handoff to RAG. It changes no runtime source or service.
