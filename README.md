@@ -1,14 +1,14 @@
 # Azure Document OCR with Python
 
-[![Approved scan to page-numbered text](docs/architecture.png)](docs/architecture.svg)
+[![Approved scan to page-numbered text](docs/diagrams/architecture.png)](docs/diagrams/architecture.svg)
 
-[View SVG](docs/architecture.svg) · [Download PNG](docs/architecture.png)
+[View SVG](docs/diagrams/architecture.svg) · [Download PNG](docs/diagrams/architecture.png) · [Edit in draw.io](docs/diagrams/architecture.drawio)
 
 **Read approved scans into page-numbered text without losing the original or paying twice for an uncertain request.**
 
-[Business problem](#the-business-problem) · [Solution](#the-solution) · [What was built](#what-was-built) · [Build your own](#build-one-of-your-own) · [Proof](#proof-it-works)
+[The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Commands](docs/COMMANDS.md) · [Step by step](#step-by-step)
 
-## The business problem
+## The Business Problem
 
 A scanned handbook can be readable to a person but invisible to document search.
 Staff then waste time opening pages or copying text, while automatically sending
@@ -16,7 +16,7 @@ every uploaded document to AI creates unnecessary privacy and cost exposure.
 This project prepares approved scans for search while preserving the original
 and making processing decisions, page coverage and uncertain submissions visible.
 
-## The solution
+## The Solution
 
 Use Python to coordinate Azure AI Document Intelligence `prebuilt-read`.
 Check permission and exact source bytes, reserve a processing estimate, submit
@@ -24,17 +24,30 @@ once, save the operation address, poll that operation, and publish validated
 page-numbered text. OCR recognizes text; it does not generate a chatbot answer,
 perform malware scanning, redact unselected pages or produce a searchable PDF.
 
-## What was built
 
-- A runnable offline OCR fixture with a populated page and a blank page.
-- A Python Azure REST adapter using Entra credentials, selected pages and a
-  persisted operation receipt; redirects and automatic paid retries are blocked.
-- File signature/10 MiB limits, up to 50 selected pages within pages 1–500,
-  page-set validation, a one-million-character result ceiling and a usage ledger.
-- Resume support for the same recorded operation, plus Terraform preparation,
-  a diagram, source references and tests for denial, duplicates and uncertainty.
+**Business outcome:** Make approved scans searchable while preserving originals and limiting uncertain repeat processing.
 
-## Build one of your own
+## Tools Used and What They Do
+
+| Tool or service | What it does | Where it fits |
+| --- | --- | --- |
+| Python | Validate files and coordinate processing | Local CLI and offline tests |
+| SQLite | Keep request receipts and usage holds | Durable local ledger |
+| Azure AI Document Intelligence | Read selected pages into text | Optional live OCR adapter |
+| Entra ID / Azure Identity | Obtain service access without a stored key | Optional Azure caller |
+| Terraform | Describe the private AI account and access | Infrastructure example |
+| GitHub Actions | Run the offline checks on request | Manual workflow |
+
+## Step by Step
+
+[Open the standalone build guide](docs/BUILD-YOUR-OWN.md) or follow the same instructions below.
+
+### Prerequisites
+
+Use Python 3.11 or newer and your own fictional test files. Azure and external AI are optional; live examples require your own approved account, network path and reviewed processing costs.
+
+Commands run from your new project root; use PowerShell for the shown environment-variable syntax. Follow the named source files as implementation references without needing to clone a portfolio repository.
+
 
 ### Step 1 — Create your project folder
 
@@ -138,7 +151,23 @@ tables and faint text. Keep its `source_sha256` and expected Azure method label
 when passing it to the companion RAG project's explicit OCR importer, while
 retaining the original PDF and controlling access to both.
 
-## Proof it works
+## Architecture
+
+[View the illustrated architecture](docs/diagrams/architecture.svg) · [Edit in draw.io](docs/diagrams/architecture.drawio)
+
+The diagram keeps the local implementation and optional hosted integration boundaries visible. Purpose icons illustrate intent; they do not indicate a completed cloud deployment.
+
+## What Was Built
+
+- A runnable offline OCR fixture with a populated page and a blank page.
+- A Python Azure REST adapter using Entra credentials, selected pages and a
+  persisted operation receipt; redirects and automatic paid retries are blocked.
+- File signature/10 MiB limits, up to 50 selected pages within pages 1–500,
+  page-set validation, a one-million-character result ceiling and a usage ledger.
+- Resume support for the same recorded operation, plus Terraform preparation,
+  a diagram, source references and tests for denial, duplicates and uncertainty.
+
+## Proof It Works
 
 Run `python -m unittest discover -s tests -v` to exercise the offline contracts.
 The tests demonstrate page mapping, empty-page preservation, permission/hash
@@ -176,13 +205,6 @@ integer page numbers, never strings, booleans or nested values. A missing or
 nontext provider operation address leaves the existing request held for
 investigation rather than inviting another submission.
 
-## Tools and utilities
-
-Python 3.11+, SQLite, `unittest`, Azure CLI and the optional `azure-identity`
-library provide the local implementation, durable records, tests and keyless
-Azure authentication. GitHub Actions includes a manual offline-test workflow. Local checks run
-without cloud credentials; publishing the repository does not activate Azure services.
-
 ## Runtime and access boundaries
 
 The Python example runs as a **trusted local operator CLI** with SQLite, not as a
@@ -193,7 +215,7 @@ private Blob reader, production queue lease, encryption wrapper, UI or managed
 service deployment wired into this sample. Azure adapters are prepared and
 mock-tested, not exercised against live services in this review.
 
-## Security and privacy
+## Security Practices
 
 Use fictional material first. A matching SHA-256 binds a review to exact bytes;
 it is not a malware verdict or evidence that the document is safe. A production
@@ -214,7 +236,7 @@ needs access protection. Neither `store=false`, Azure hosting nor encryption
 alone establishes HIPAA/SOC 2 compliance or guarantees zero provider retention;
 review applicable service terms, geography and organizational obligations.
 
-## Costs and safe restart
+## Costs and Safe Restart
 
 Local tests and fictional demos make no cloud requests. The optional Azure path
 can incur processing, private-endpoint, DNS, storage and log charges; no resource
@@ -245,7 +267,7 @@ configured otherwise; their allowances and concurrency slots are not a single
 shared Azure budget. A fresh UUID after a completed request represents new
 paid work, so duplicate-ID protection is not content-based deduplication.
 
-## Troubleshooting lessons
+## Troubleshooting Lessons
 
 - **Service or private path unavailable:** inspect resource state, endpoint/DNS,
   credentials and scoped access before changing the file or paying for a retry.
@@ -256,7 +278,7 @@ paid work, so duplicate-ID protection is not content-based deduplication.
 - **File changed:** original bytes, review hash and derived text must agree;
   update the review and index deliberately instead of relabeling old evidence.
 
-## Scaling and tradeoffs
+## Scaling and Tradeoffs
 
 SQLite and local files keep this exercise easy to inspect but are not a
 distributed coordination/security boundary. Measure queue wait, scan delay,
@@ -284,10 +306,23 @@ the RAG importer intentionally rejects it as real OCR evidence. The shared bundl
 tests exercise the real Python adapter/export/import path with a **mocked** OCR
 response; they make no provider or model request and establish no recognition quality.
 
-## Related projects
+## Project Guides
 
-- [Role-aware RAG with Python](https://github.com/truthofsource/azure-role-aware-rag-python)
+- [Build your own](docs/BUILD-YOUR-OWN.md)
+- [Commands](docs/COMMANDS.md)
+- [Validation and evidence limits](docs/validation.md)
+- [Editable architecture](docs/diagrams/architecture.drawio)
+
+## Cost and Cleanup
+
+Local fixture tests do not call paid providers. Keep optional live settings Off until configured, review infrastructure and processing charges, and retire only resources owned by your lab.
+
+Preserve source files, issued history, revocations and uncertain-request receipts when cleaning up. Do not delete ledgers to bypass holds or run blanket cleanup against a shared environment.
+
+## Related Projects
+
+- [Secure RAG AI Chatbot](https://github.com/truthofsource/secure-rag-ai-chatbot)
 - [Email document ingestion with Python](https://github.com/truthofsource/azure-document-ingestion-python)
-- [Employee badge generation with Python](https://github.com/truthofsource/employee-badge-generation-python)
+- [AI-Assisted Employee Badge Generation](https://github.com/truthofsource/employee-badge-generation-python)
 
 Publishing this code does not start a service, approve a document or enable paid processing.
